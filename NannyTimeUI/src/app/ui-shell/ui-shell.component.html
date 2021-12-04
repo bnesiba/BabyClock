@@ -1,0 +1,11 @@
+<div class="page-container">
+    
+    <div class="button-container">
+        <div class="page-title">Nanny Time App</div>
+        <button mat-raised-button 
+        [ngClass]="{'arthur-button' : arthurClockingIn,'arthur-start-button' : !arthurClockingIn}" 
+        (click)="ToggleArthur()">{{ArthurText}}</button>
+        <button mat-raised-button [ngClass]="{'emilia-button' : EmiliaClockingIn,'emilia-start-button' : !EmiliaClockingIn}" 
+        (click)="ToggleEmilia()">{{EmiliaText}}</button>
+    </div>
+</div>

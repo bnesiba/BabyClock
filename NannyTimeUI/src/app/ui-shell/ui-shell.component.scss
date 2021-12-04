@@ -1,0 +1,45 @@
+button{
+    width: 60vh;
+    height: 20vh;
+    
+    margin-top: 5vh;
+    font-size: x-large;
+}
+
+.arthur-button{
+    background: powderblue;
+    margin-bottom: 5vh;
+}
+
+.arthur-start-button{
+    background: lightseagreen;
+    margin-bottom: 5vh;
+}
+
+.emilia-button{
+    background:lighten($color: lightPink, $amount: 5)
+}
+
+.emilia-start-button{
+    background:darken($color: lightpink, $amount: 5) 
+}
+
+.page-container {
+    display: flex;
+    flex-direction: row;
+    //align-items: center;
+    justify-content: center;
+    
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.page-title{
+    text-align: center;
+    font-size:x-large;
+    font-weight: bold;
+    margin-top: 1vh;
+}
