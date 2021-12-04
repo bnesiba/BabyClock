@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TimeClockState } from '../models/TimeClockState';
+import { TimeclockService } from '../timeclock.service';
 
 @Component({
   selector: 'app-ui-shell',
@@ -7,30 +9,69 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UiShellComponent implements OnInit {
 
-  public arthurClockingIn = true;
-  public EmiliaClockingIn = true;
-  public ArthurText = "Arthur - Clock In";
-  public EmiliaText = "Emilia - Clock In";
-  constructor() { }
+  private  arthurClockInText =  "Arthur - Clock In";
+  private  emiliaClockInText = "Emilia - Clock In";
+  private  arthurClockOutText =  "Arthur - Clock Out";
+  private  emiliaClockOutText = "Emilia - Clock Out";
+  public timeClockState : TimeClockState | undefined;
+
+  public ArthurText = this.arthurClockInText;
+  public EmiliaText = this.emiliaClockInText;
+
+  constructor(private timeclock: TimeclockService) { }
 
   ngOnInit(): void {
+    this.timeClockState = this.timeclock.GetCurrentState();
   }
 
   public ToggleArthur(){
-    this.arthurClockingIn = !this.arthurClockingIn;
-    if(this.arthurClockingIn){
-      this.ArthurText = "Arthur - Clock In"
-    }else{
-      this.ArthurText = "Arthur - Clock Out"
+    if(this.timeClockState){
+      this.timeClockState.ArthurClockedIn = !this.timeClockState.ArthurClockedIn;
+      this.timeclock.SetState(this.timeClockState);
+    }
+    this.SetArthurText();
+    if(this.timeClockState){
+      
     }
   }
 
   public ToggleEmilia(){
-    this.EmiliaClockingIn = !this.EmiliaClockingIn;
-    if(this.EmiliaClockingIn){
-      this.EmiliaText = "Emilia - Clock In"
+    if(this.timeClockState){
+      this.timeClockState.EmiliaClockedIn = !this.timeClockState.EmiliaClockedIn;
+      this.timeclock.SetState(this.timeClockState);
+    }
+    this.SetEmiliaText();
+  }
+
+  public ArthurClockedIn(){
+    if(this.timeClockState && this.timeClockState.ArthurClockedIn){
+      return this.timeClockState.ArthurClockedIn;
     }else{
-      this.EmiliaText = "Emilia - Clock Out"
+      return false;
+    }
+  }
+
+  public EmiliaClockedin(){
+    if(this.timeClockState && this.timeClockState.EmiliaClockedIn){
+      return this.timeClockState.EmiliaClockedIn;
+    }else{
+      return false;
+    }
+  }
+
+  private SetArthurText(){
+    if(!this.timeClockState?.ArthurClockedIn){
+      this.ArthurText = this.arthurClockInText;
+    }else{
+      this.ArthurText = this.arthurClockOutText;
+    }
+  }
+
+  private SetEmiliaText(){
+    if(!this.timeClockState?.EmiliaClockedIn){
+      this.EmiliaText = this.emiliaClockInText;
+    }else{
+      this.EmiliaText = this.emiliaClockOutText;
     }
   }
 
