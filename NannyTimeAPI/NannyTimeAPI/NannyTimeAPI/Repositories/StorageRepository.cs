@@ -50,6 +50,11 @@ namespace NannyTimeAPI.Repositories
             return result;
         }
 
+        public static List<ClockEntry> GetClockEntriesBetweenDates(DateTime startDate, DateTime endDate)
+        {
+            return new List<ClockEntry>();
+        }
+
         private static bool SetBabyState(string baby, bool clockingIn)
         {
             bool result = false;
