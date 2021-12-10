@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NannyTimeAPI.Models;
+using NannyTimeAPI.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +15,17 @@ namespace NannyTimeAPI.Controllers
     public class TimeclockController : ControllerBase
     {
         [HttpPost]
-        public void SetState(TimeState state)
+        [Route("SetState")]
+        public bool  SetState(TimeState state)
         {
-            return; 
+            return StorageRepository.SetState(state);
         }
 
         [HttpGet]
+        [Route("GetState")]
         public TimeState GetCurrentState()
         {
-            return new TimeState();
+            return StorageRepository.GetState();
         }
     }
 }

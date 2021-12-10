@@ -13,7 +13,7 @@ export class UiShellComponent implements OnInit {
   private  emiliaClockInText = "Emilia - Clock In";
   private  arthurClockOutText =  "Arthur - Clock Out";
   private  emiliaClockOutText = "Emilia - Clock Out";
-  public timeClockState : TimeClockState | undefined;
+  public timeClockState : TimeClockState = {} as TimeClockState
 
   public ArthurText = this.arthurClockInText;
   public EmiliaText = this.emiliaClockInText;
@@ -21,12 +21,17 @@ export class UiShellComponent implements OnInit {
   constructor(private timeclock: TimeclockService) { }
 
   ngOnInit(): void {
-    this.timeClockState = this.timeclock.GetCurrentState();
+    this.timeclock.GetCurrentState().subscribe((result) => {
+      this.timeClockState.arthurClockedIn = result.arthurClockedIn;
+      this.timeClockState.emiliaClockedIn = result.emiliaClockedIn;
+      this.SetArthurText();
+      this.SetEmiliaText();
+    });
   }
 
   public ToggleArthur(){
     if(this.timeClockState){
-      this.timeClockState.ArthurClockedIn = !this.timeClockState.ArthurClockedIn;
+      this.timeClockState.arthurClockedIn = !this.timeClockState.arthurClockedIn;
       this.timeclock.SetState(this.timeClockState);
     }
     this.SetArthurText();
@@ -37,30 +42,30 @@ export class UiShellComponent implements OnInit {
 
   public ToggleEmilia(){
     if(this.timeClockState){
-      this.timeClockState.EmiliaClockedIn = !this.timeClockState.EmiliaClockedIn;
+      this.timeClockState.emiliaClockedIn = !this.timeClockState.emiliaClockedIn;
       this.timeclock.SetState(this.timeClockState);
     }
     this.SetEmiliaText();
   }
 
   public ArthurClockedIn(){
-    if(this.timeClockState && this.timeClockState.ArthurClockedIn){
-      return this.timeClockState.ArthurClockedIn;
+    if(this.timeClockState && this.timeClockState.arthurClockedIn){
+      return this.timeClockState.arthurClockedIn;
     }else{
       return false;
     }
   }
 
   public EmiliaClockedin(){
-    if(this.timeClockState && this.timeClockState.EmiliaClockedIn){
-      return this.timeClockState.EmiliaClockedIn;
+    if(this.timeClockState && this.timeClockState.emiliaClockedIn){
+      return this.timeClockState.emiliaClockedIn;
     }else{
       return false;
     }
   }
 
   private SetArthurText(){
-    if(!this.timeClockState?.ArthurClockedIn){
+    if(!this.timeClockState?.arthurClockedIn){
       this.ArthurText = this.arthurClockInText;
     }else{
       this.ArthurText = this.arthurClockOutText;
@@ -68,7 +73,7 @@ export class UiShellComponent implements OnInit {
   }
 
   private SetEmiliaText(){
-    if(!this.timeClockState?.EmiliaClockedIn){
+    if(!this.timeClockState?.emiliaClockedIn){
       this.EmiliaText = this.emiliaClockInText;
     }else{
       this.EmiliaText = this.emiliaClockOutText;

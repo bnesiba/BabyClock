@@ -1,4 +1,4 @@
 export interface TimeClockState{
-    ArthurClockedIn: boolean;
-    EmiliaClockedIn: boolean;
+    arthurClockedIn: boolean;
+    emiliaClockedIn: boolean;
 }

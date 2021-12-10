@@ -7,8 +7,8 @@ namespace NannyTimeAPI.Models
 {
     public class TimeState
     {
-        public bool ArthurCheckedIn { get; set; }
-        public bool EmiliaCheckedIn { get; set; }
+        public bool arthurClockedIn { get; set; }
+        public bool emiliaClockedIn { get; set; }
 
     }
 }
