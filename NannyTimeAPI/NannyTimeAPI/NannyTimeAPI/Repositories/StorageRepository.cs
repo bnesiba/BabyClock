@@ -52,6 +52,41 @@ namespace NannyTimeAPI.Repositories
 
         public static List<ClockEntry> GetClockEntriesBetweenDates(DateTime startDate, DateTime endDate)
         {
+            List<ClockEntry> result = new List<ClockEntry>();
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    using (var command = new SqlCommand("GetEntriesByDates", conn))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        var startTime = command.Parameters.Add("@start", System.Data.SqlDbType.DateTime);
+                        startTime.Value = startDate;
+
+                        var endTime = command.Parameters.Add("@end", System.Data.SqlDbType.DateTime);
+                        endTime.Value = endDate;
+
+                        conn.Open();
+                        var reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            result.Add(new ClockEntry
+                            {
+                                baby = reader.GetString(0),
+                                clockTime = reader.GetDateTime(1),
+                                clockedIn = reader.GetBoolean(2)
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR!", e);
+                //log or something?
+            }
+            return result;
             return new List<ClockEntry>();
         }
 
