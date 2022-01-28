@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NannyTimeAPI.Models;
+using NannyTimeAPI.Models.Payment;
 using NannyTimeAPI.Repositories;
 using NannyTimeAPI.Utils;
 using System;
