@@ -25,8 +25,8 @@ namespace NannyTimeAPI.Models.Payment
         public double TotalPayment { get; private set; }
         public double NormalHoursPayment { get; private set; }
         public double ShareHoursPayment { get; private set; }
-        public double OverTimePayment { get; private set; }
-        public double ShareOverTimePayment { get; private set; }
+        public double OvertimePayment { get; private set; }
+        public double ShareOvertimePayment { get; private set; }
 
         public void AddHours(double hours, bool shared = false)
         {
@@ -69,9 +69,9 @@ namespace NannyTimeAPI.Models.Payment
         {
             NormalHoursPayment = NormalHours * _rate;
             ShareHoursPayment = ShareHours * _shareRate;
-            OverTimePayment = OverTimeHours * (_rate * 1.5);
-            ShareOverTimePayment = ShareOverTimeHours * (_shareRate * 1.5);
-            TotalPayment = NormalHoursPayment + ShareHoursPayment + OverTimePayment + ShareOverTimePayment;
+            OvertimePayment = OverTimeHours * (_rate * 1.5);
+            ShareOvertimePayment = ShareOverTimeHours * (_shareRate * 1.5);
+            TotalPayment = NormalHoursPayment + ShareHoursPayment + OvertimePayment + ShareOvertimePayment;
         }
     }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TimeclockService } from '../timeclock.service';
 
 @Component({
   selector: 'app-calculation-shell',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalculationShellComponent implements OnInit {
 
-  constructor() { }
+  constructor(timeClock: TimeclockService) { }
 
   ngOnInit(): void {
   }
