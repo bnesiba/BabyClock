@@ -33,44 +33,38 @@ namespace NannyTimeAPI.Models.Payment
             double remainingNormalHours = 40 - NormalHours - ShareHours;
             if (shared)
             {
-                if (!HadOvertime)
-                {
-                    if (remainingNormalHours > hours)
-                    {
-                        ShareHours += hours;
-                    }
-                    else
-                    {
-                        ShareHours += remainingNormalHours;
-                        ShareOverTimeHours += (hours - remainingNormalHours);
-                        HadOvertime = true;
-                    }
-                }
-                else
-                {
-                    ShareOverTimeHours += hours;
-                }
+                ShareHours += hours;
             }
-            else if (!HadOvertime)
+            else
             {
-                if (remainingNormalHours > hours)
+                NormalHours += hours;
+            }
+            calculateOvertime();
+            calculatePayments();
+        }
+
+        private void calculateOvertime()
+        {
+            if(ShareHours < 40)
+            {
+                var remainingHours = 40 - ShareHours;
+                if(NormalHours > remainingHours)
                 {
-                    NormalHours += hours;
-                }
-                else
-                {
-                    NormalHours += remainingNormalHours;
-                    OverTimeHours += (hours - remainingNormalHours);
-                    HadOvertime = true;
+                    var normalOvertime1 = NormalHours - remainingHours;
+                    NormalHours = remainingHours;
+                    OverTimeHours = normalOvertime1;
+
                 }
             }
             else
             {
-                OverTimeHours += hours;
+                var overtimeShare = ShareHours - 40;
+                ShareHours = overtimeShare;
+                ShareOverTimeHours = overtimeShare;
+                OverTimeHours = NormalHours;
+                NormalHours = 0; 
             }
-            calculatePayments();
         }
-
         private void calculatePayments()
         {
             NormalHoursPayment = NormalHours * _rate;
