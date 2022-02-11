@@ -1,1 +1,67 @@
-<p>calculation-shell works!</p>
+
+<div *ngIf="loaded" style="margin-top: 2vh; margin-left: 2vw;">
+    <div style="font-weight: bold;">Arthur Times:</div>
+    <table style="width: 30vw;">
+        <thead>
+            <th>Start</th>
+            <th>End</th>
+            <th>Hours</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let timespan of GetCalcData().arthurTimes">
+                <td style="margin-right:5px !important">{{timespan.start | date:'MM/dd/yy h:mma'}}</td>
+                <td>{{timespan.end | date:'MM/dd/yy h:mma'}}</td>
+                <td>{{timespan.hours | number:'1.2-2'}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="margin-top: 2vh;font-weight: bold;">Share Times:</div>
+    <table style="width: 30vw;">
+        <thead>
+            <th>Start</th>
+            <th>End</th>
+            <th>Hours</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let timespan of GetCalcData().shareTimes">
+                <td >{{timespan.start | date:'MM/dd/yy h:mma'}}</td>
+                <td>{{timespan.end | date:'MM/dd/yy h:mma'}}</td>
+                <td>{{timespan.hours | number:'1.2-2'}}</td>
+            </tr>
+        </tbody>
+    </table>
+   
+
+    <div *ngFor="let week of GetCalcData().arthurWeeks" style="margin-top:2vh;">
+        <div style="font-weight:bold">Week Stats:</div>
+
+        <table style="width: 30vw;">
+            <thead>
+                <th>Time Type</th>
+                <th>Hours</th>
+                <th>Cost</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td >Normal</td>
+                    <td>{{week.normalHours | number:'1.2-2'}}</td>
+                    <td>{{week.normalHoursPayment | number:'1.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td >Share</td>
+                    <td>{{week.shareHours | number:'1.2-2'}}</td>
+                    <td>{{week.shareHoursPayment | number:'1.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td >Overtime</td>
+                    <td>{{week.overTimeHours | number:'1.2-2'}}</td>
+                    <td>{{week.overtimePayment | number:'1.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 2vh; font-weight: bold;" >Arthur Total Cost:
+        <span style="font-weight: 500; color:green">{{GetCalcData().arthurCost | number:'1.2-2'}}</span>
+    </div>
+</div>

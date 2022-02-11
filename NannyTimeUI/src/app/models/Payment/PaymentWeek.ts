@@ -1,29 +1,29 @@
 export interface PaymentWeek{
-    AllTimes: DateTimeSpan[];
-    ShareTimes: DateTimeSpan[];
+    allTimes: DateTimeSpan[];
+    shareTimes: DateTimeSpan[];
 
-    NormalHours: number; 
-    ShareHours: number;
-    OverTimeHours: number;
-    HadOvertime: boolean;
+    normalHours: number; 
+    shareHours: number;
+    overTimeHours: number;
+    hadOvertime: boolean;
     
-    TotalPayment: number;
-    NormalHoursPayment: number;
-    ShareHoursPayment: number;
-    OvertimePayment: number;
-    ShareOvertimePayment: number; 
+    totalPayment: number;
+    normalHoursPayment: number;
+    shareHoursPayment: number;
+    overtimePayment: number;
+    shareOvertimePayment: number; 
 }
 
 export interface DateTimeSpan{
-    Start: Date;
-    End: Date;
-    Hours: number;
+    start: Date;
+    end: Date;
+    hours: number;
 }
 
 export interface PaymentResult{
-    ArthurTimes: DateTimeSpan[];
-    ShareTimes: DateTimeSpan[];
+    arthurTimes: DateTimeSpan[];
+    shareTimes: DateTimeSpan[];
     
-    ArthurCost: number;
-    ArthurWeeks: PaymentWeek[];
+    arthurCost: number;
+    arthurWeeks: PaymentWeek[];
 }
